@@ -1,0 +1,30 @@
+.App {
+  padding: 5px;
+}
+
+img {
+  height: 200px;
+  width: 200px;
+}
+
+.profile-img{
+  height: 100px;
+  width: 100px;
+}
+
+.postuser{
+  font-weight: bold;
+}
+
+.postuser :hover {
+  color: blue;
+}
+
+.post {
+  margin: 25px;
+}
+
+.like {
+  padding: 5px;
+  border: 1px solid black;
+}
