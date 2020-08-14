@@ -2,24 +2,39 @@ import React, { useState, useEffect } from 'react';
 import apiUrl from '../ApiConfig';
 import axios from 'axios';
 import { NavLink, useHistory } from 'react-router-dom';
+import Nav from './shared/Nav';
 
 
 const Timeline = () => {
     const [posts,setPosts] = useState([]);
     const history = useHistory();
 
+    const compare = (a, b) => {
+        let comparison = 0;
+        if (a.id > b.id) {
+          comparison = -1;
+        } else if (b.id > a.id) {
+          comparison = 1;
+       }
+        return comparison;
+      };
+
   const makeAPICall = async () => {
     try {
       const response = await axios(`${apiUrl}/posts`)
       console.log('apiresponse',response.data)
-      setPosts(response.data)
+      setPosts(response.data.sort(compare))
     } catch (err) {
       console.error(err)
     }
+    console.log('posts',posts)
   }
 
   useEffect(() => {
     makeAPICall()
+    console.log('cookie timeline',document.cookie)
+    console.log('token',localStorage)
+
   }, [])
 
   const profilelink =(id)=>{
@@ -51,12 +66,15 @@ const Timeline = () => {
         {post.img === null? null: <img src={post.img}/>}
         <div>{post.created_at}</div>
         <div>{post.likes}</div>
-        <span className="like"onClick={()=>handleLike(post.id,post.likes)}>Like</span>
+  { localStorage.length === 0 ? null : <span className="like"onClick={()=>handleLike(post.id,post.likes)}>Like</span> }
     </div>
 ))
 
+
+
     return(
         <div>
+            <Nav/>
             Timeline
             {postMap}
         </div>

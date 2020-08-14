@@ -7,7 +7,7 @@ const NewPost = props => {
     const [user_id,setUser_id] = useState(0)
     const [content, setContent] = useState("");
     const [img,setImg] = useState(null);
-    const history = useHistory;
+    const history = useHistory();
 
 
     const handleContentChange = (event) => {

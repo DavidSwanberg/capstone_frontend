@@ -6,6 +6,7 @@ import SignUp from './components/SignUp';
 import Profile from './components/Profile';
 import Timeline from './components/Timeline';
 import NewPost from './components/NewPost';
+import EditProfile from './components/EditProfile';
 import { Route } from 'react-router-dom'; 
 
 import './App.css';
@@ -33,6 +34,7 @@ const App = () => {
        <Route exact path ='/' component = {() => <Login setUser={setUser}/>}/>
        <Route path ='/timeline' component = {()=> <Timeline/>}/> 
        <Route path ='/sign-up' component = {()=> <SignUp/>}/>
+       <Route path='/edit' component ={()=><EditProfile/>}/>
        <Route path ='/profile/:id' component = {(props)=><Profile {...props}/>}/>
        <Route path ='/new' component = {()=><NewPost user={user}/>}/>
 

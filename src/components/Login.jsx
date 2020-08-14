@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { NavLink, useHistory } from 'react-router-dom'
 
@@ -38,6 +38,11 @@ const Login = props => {
         history.push(`/timeline`)
     }
 
+    useEffect(() => {
+        console.log('cookie',document.cookie)
+        console.log('token',localStorage)
+      }, [])
+
 
     
     return(
@@ -58,7 +63,6 @@ const Login = props => {
             </form>
         </div>
         <NavLink to='/sign-up'>sign up for account</NavLink>
-        <NavLink to='/new'>create a post</NavLink>
         </div>
     )
 } 

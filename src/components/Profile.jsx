@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import apiUrl from '../ApiConfig';
+import Nav from './shared/Nav';
+import { NavLink, useHistory } from 'react-router-dom';
 
 
 const Profile = props => {
@@ -8,6 +10,16 @@ const Profile = props => {
     const [posts,setPosts]= useState([]);
 
     console.log('props',props)
+
+    const compare = (a, b) => {
+        let comparison = 0;
+        if (a.id > b.id) {
+          comparison = -1;
+        } else if (b.id > a.id) {
+          comparison = 1;
+       }
+        return comparison;
+      };
 
     const makeAPICall = async () => {
         let dataposts = null
@@ -18,7 +30,7 @@ const Profile = props => {
         } catch (err) {
           console.error(err)
         }
-        setPosts(dataposts)
+        setPosts(dataposts.sort(compare))
       }
     
       useEffect(() => {
@@ -51,13 +63,14 @@ const Profile = props => {
         </div>
     ))
 
-
-
+   
     return(
         <div>
+            <Nav/>
             Profile
             <img className="profile-img" src={user.profile_img}/>
             {user.username}
+            {document.cookie === props.match.params.id ? <NavLink to='/edit'>Edit Account</NavLink> : null}
             {postMap}
         </div>
     )

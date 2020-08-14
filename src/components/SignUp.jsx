@@ -4,6 +4,7 @@ import { NavLink, useHistory } from 'react-router-dom'
 
 const SignUp = () => {
     const [input, setInput] = useState({ username: "", password: "", profile_img:"" });
+    const [error, setError] = useState(false);
     const history = useHistory()
 
     const handleSubmit = async(event)=>{
@@ -17,9 +18,15 @@ const SignUp = () => {
                           "Content-Type": "application/json",
                           "Accept": "application/json"
                       },
-          })
-        console.log('res',res)
-        history.push('/')
+            
+          }).then( 
+              (response) => {
+                console.log('res',response)
+                history.push('/')
+              },
+              (error)=>{ setError(true)}
+          );
+                   
     }
 
     const handleChange = (event) => {
@@ -37,6 +44,7 @@ const SignUp = () => {
                     <label>Username</label>
                     <input name="username"value={input.username} onChange={handleChange} type="text" placeholder="username"/>
                 </div>
+                {error === true ? <p>Choose a different username</p> : null}
                 <div class="field">
                     <label>Password</label>
                     <input name="password"value={input.password} onChange={handleChange} type="password" placeholder="password"/>
