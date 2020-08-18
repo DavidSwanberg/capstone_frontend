@@ -39,22 +39,20 @@ const SignUp = () => {
 
     return(
         <div>
-            <form class="ui form" onSubmit={handleSubmit}>
-                <div class="field">
-                    <label>Username</label>
-                    <input name="username"value={input.username} onChange={handleChange} type="text" placeholder="username"/>
+            <form class="form" onSubmit={handleSubmit}>
+                <div>
+                    <input class="field" name="username"value={input.username} onChange={handleChange} type="text" placeholder="username"/>
                 </div>
                 {error === true ? <p>Choose a different username</p> : null}
-                <div class="field">
-                    <label>Password</label>
-                    <input name="password"value={input.password} onChange={handleChange} type="password" placeholder="password"/>
+                <div>
+                    <input class="field" name="password"value={input.password} onChange={handleChange} type="password" placeholder="password"/>
                 </div>
-                <div class="field">
-                    <label>Profile Photo URL</label>
-                    <input name="profile_img"value={input.profile_img} onChange={handleChange} type="text" placeholder="http://example.com/image.jpg"/>
+                <div>
+                    <input class="field" name="profile_img"value={input.profile_img} onChange={handleChange} type="text" placeholder="profile image url"/><br/>
+                    <label>http://example.com/image.jpg</label>
                 </div>
                 
-                <button class="ui button" type="submit">Submit</button>
+                <button class="sign-up-button" type="submit">Create Account</button>
             </form>
         </div>
     )

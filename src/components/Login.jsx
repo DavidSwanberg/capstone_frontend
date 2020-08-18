@@ -46,23 +46,24 @@ const Login = props => {
 
     
     return(
-        <div>
+        <div class="login">
+            <h1>welcome to poster</h1>
             <div>
-            <h1>Log In</h1>
-            <form onSubmit={handleSubmit}>
+            <div className="landing-container">
+            <img id="landing-img"src="https://media.giphy.com/media/efUcLJePY6RkA/giphy.gif"/>
+            </div>
+            <form id="login-form"class="form" onSubmit={handleSubmit}>
                 <div>
-                    <label>Username</label>
-                    <input name="username"value={input.username} onChange={handleChange} type="text" placeholder="username"/>
+                    <input id="login-field"class="field" name="username"value={input.username} onChange={handleChange} type="text" placeholder="username"/>
                 </div>
                 <div>
-                    <label>Password</label>
-                    <input name="password"value={input.password} onChange={handleChange} type="password" placeholder="password"/>
+                    <input id="login-field"class="field" name="password"value={input.password} onChange={handleChange} type="password" placeholder="password"/>
                 </div>
                 
-                <button type="submit">Submit</button>
+                <button class="sign-up-button" type="submit">Submit</button>
             </form>
         </div>
-        <NavLink to='/sign-up'>sign up for account</NavLink>
+        <NavLink id="sign-up" to='/sign-up'>sign up for account</NavLink>
         </div>
     )
 } 

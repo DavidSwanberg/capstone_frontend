@@ -3,9 +3,10 @@ import apiUrl from '../ApiConfig';
 import axios from 'axios';
 import { NavLink, useHistory } from 'react-router-dom';
 import Nav from './shared/Nav';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
-const Timeline = () => {
+const Timeline = props => {
     const [posts,setPosts] = useState([]);
     const history = useHistory();
 
@@ -56,26 +57,44 @@ const Timeline = () => {
     makeAPICall()
 }
 
+const convertDate = str =>{
+  let arr = str.split('')
+   let returnArr=[]
+   for(let i=0;i<19;i++){
+    if(arr[i]==='T'){
+     returnArr.push(' ')
+   }else{
+    returnArr.push(arr[i])
+  }
+ }
+ return returnArr.join('')
+ }
+
   const postMap = posts.map( post => (
     <div className="post" key={post.id}>
         <div className="postuser">
+
             <img className="profile-img" src={post.user.profile_img} />
-        <div onClick={()=>profilelink(post.user_id)}>{post.user.username}</div>
-        </div>
+
+        <div className="top-wrapper-post">
+        <div className="postusername" onClick={()=>profilelink(post.user_id)}>{post.user.username}</div>
         <p>{post.content}</p>
-        {post.img === null? null: <img src={post.img}/>}
-        <div>{post.created_at}</div>
-        <div>{post.likes}</div>
-  { localStorage.length === 0 ? null : <span className="like"onClick={()=>handleLike(post.id,post.likes)}>Like</span> }
+        </div>
+        </div>
+        {post.img === null? null: <div className="image-wrapper"><img className='post-img'src={post.img}/></div>}
+        <div className="post-dash">
+          <div className="date">{convertDate(post.created_at)}</div>
+          <div>{post.likes} likes</div>
+          { localStorage.length === 0 ? null : <span className="like"onClick={()=>handleLike(post.id,post.likes)}><FontAwesomeIcon id="nav-select"icon={["far","thumbs-up"]}/></span> }
+       </div>
     </div>
 ))
 
 
 
     return(
-        <div>
-            <Nav/>
-            Timeline
+        <div className="timeline">
+            <Nav props={props}/>
             {postMap}
         </div>
     )

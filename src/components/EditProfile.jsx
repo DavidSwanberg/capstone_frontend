@@ -85,26 +85,29 @@ const EditProfile = () => {
         console.log('profile deleted')
       }
 
+    const goBack = () => {
+        history.push(`/profile/${id}`)
+    }
+
 
     return(
         <div>
-            <form onSubmit={handleSubmit}>
+            <form class="form" onSubmit={handleSubmit}>
                 <div>
-                    <label>Change Username</label>
-                    <input name="username"value={username} onChange={handleUsernameChange} type="text" placeholder="username"/>
+                    <input class="field" name="username"value={username} onChange={handleUsernameChange} type="text" placeholder="username"/>
                 </div>
                 <div>
-                    <label>Password</label>
-                    <input name="password"value={password} onChange={handlePasswordChange} type="password" placeholder="password"/>
+                    <input class="field" name="password"value={password} onChange={handlePasswordChange} type="password" placeholder="password"/><br/>
+                    <label>must enter new password or re-enter current one</label>
                 </div>
                 <div>
-                    <label>Profile Photo URL</label>
-                    <input name="profile_img"value={profile_img} onChange={handleImgChange} type="text" placeholder="http://example.com/image.jpg"/>
+                    <input class="field" name="profile_img"value={profile_img} onChange={handleImgChange} type="text" placeholder="http://example.com/image.jpg"/>
                 </div>
                 
-                <button type="submit">Submit</button>
+                <button class="sign-up-button" type="submit">Submit</button>
             </form>
-            <p onClick={()=>destroy()}>DELETE ACCOUNT</p>
+            <p class="delete"onClick={()=>destroy()}>DELETE ACCOUNT</p>
+            <p class="delete"onClick={()=>goBack()}>GO BACK</p>
         </div>
     )
 }

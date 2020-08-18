@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import apiUrl from '../ApiConfig';
+import Nav from './shared/Nav';
 import { useHistory } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const NewPost = props => {
     const [user_id,setUser_id] = useState(0)
     const [content, setContent] = useState("");
     const [img,setImg] = useState(null);
+    const [addImage,setAddImage]= useState(false);
     const history = useHistory();
 
+
+    const toggleAddImage = ()=>{
+        setAddImage(!addImage)
+    }
 
     const handleContentChange = (event) => {
         //console.log("event", event.target.name, event.target.value);
@@ -51,20 +58,27 @@ const NewPost = props => {
         setUser_id(cookie)
     }
 
+    const cancel = ()=>{
+        history.push('/timeline')
+    }
+
     return(
-        <div>
+        <div className="new-container">
+        <div className="new-post">
             <form onSubmit={handleSubmit}>
+            <div className="input-dash">
+                <span id="cancel"onClick={cancel}>X</span>
                 <div>
-                    <label>Content</label>
-                    <input name="content"value={content} onChange={handleContentChange} type="text" placeholder="content"/>
+                    <button id="post-button"type="submit">Submit</button>
+                    <span onClick={toggleAddImage}><FontAwesomeIcon icon={["fa","image"]}/></span>
                 </div>
+            </div>
+                    {addImage === false ? null : <div><input id="img-input"name="img"value={img} onChange={handleImgChange} type="text" placeholder="image-url"/></div>}
                 <div>
-                    <label>image url</label>
-                    <input name="img"value={img} onChange={handleImgChange} type="text"/>
+                    <textarea maxlength='255' id="content"name="content"value={content} onChange={handleContentChange} type="text" placeholder="content"/>
                 </div>
-                
-                <button type="submit">Submit</button>
             </form>
+        </div>
         </div>
     )
 }

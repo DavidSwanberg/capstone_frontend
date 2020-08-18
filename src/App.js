@@ -32,7 +32,7 @@ const App = () => {
   return (
     <div className="App">
        <Route exact path ='/' component = {() => <Login setUser={setUser}/>}/>
-       <Route path ='/timeline' component = {()=> <Timeline/>}/> 
+       <Route path ='/timeline' component = {(props)=> <Timeline {...props}/>}/> 
        <Route path ='/sign-up' component = {()=> <SignUp/>}/>
        <Route path='/edit' component ={()=><EditProfile/>}/>
        <Route path ='/profile/:id' component = {(props)=><Profile {...props}/>}/>

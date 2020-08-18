@@ -3,6 +3,7 @@ import axios from 'axios';
 import apiUrl from '../ApiConfig';
 import Nav from './shared/Nav';
 import { NavLink, useHistory } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const Profile = props => {
@@ -48,29 +49,49 @@ const Profile = props => {
         console.log(id)
       }
 
+ const convertDate = str =>{
+    let arr = str.split('')
+     let returnArr=[]
+     for(let i=0;i<19;i++){
+      if(arr[i]==='T'){
+       returnArr.push(' ')
+     }else{
+      returnArr.push(arr[i])
+    }
+   }
+   return returnArr.join('')
+   }
+
       
       const postMap = posts.map( post => (
         <div className="post" key={post.id}>
             <div className="postuser">
                 <img className="profile-img" src={user.profile_img} />
-                <div>{user.username}</div>
+                <div className="top-wrapper-post">
+                <div className="postusername">{user.username}</div>
+                <p>{post.content}</p>
+                </div>
             </div>
-            <p>{post.content}</p>
-            {post.img === null? null: <img src={post.img}/>}
-            <div>{post.created_at}</div>
-            <div>{post.likes}</div>
-            {document.cookie === props.match.params.id ? <span onClick={()=>destroy(post.id)}>delete tweet</span>: null}
+            {post.img === null? null: <div className="image-wrapper"><img className="post-img"src={post.img}/></div>}
+          <div className="post-dash">
+            <div className="date">{convertDate(post.created_at)}</div>
+            <div>{post.likes} likes</div>
+            {document.cookie === props.match.params.id ? <span id="nav-select" onClick={()=>destroy(post.id)}><FontAwesomeIcon id="nav-select" icon={["far","trash-alt"]}/></span>: null}
+          </div>
         </div>
     ))
 
    
     return(
         <div>
-            <Nav/>
-            Profile
-            <img className="profile-img" src={user.profile_img}/>
-            {user.username}
-            {document.cookie === props.match.params.id ? <NavLink to='/edit'>Edit Account</NavLink> : null}
+            <Nav props={props}/>
+            <div className="profile-header">
+            <img className="profile-img2" src={user.profile_img}/>
+            <div className="username-wrapper">
+            <p className="postusername">{user.username} </p>
+            {document.cookie === props.match.params.id ? <NavLink to='/edit'><FontAwesomeIcon id="settings" icon={["fa","cog"]}/></NavLink> : null}
+            </div>
+            </div>
             {postMap}
         </div>
     )
